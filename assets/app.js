@@ -78,7 +78,7 @@
     "mvd.title": "Made in Montevideo, free for everyone.",
     "mvd.body": "Rambla is open source under the MIT license. Read the code, report a problem or propose an improvement.",
     "mvd.manual": "Read the manual",
-    "footer.credits": "Inspired by niri, PaperWM and ChainYourMac. Built with Swift in Uruguay.",
+    "footer.credits": "Built with Swift in Uruguay.",
     "footer.manual": "Manual",
     "footer.issues": "Report a problem",
     "footer.license": "MIT license",
