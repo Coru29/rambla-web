@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rambla: tus ventanas en fila, para macOS</title>
+  <meta name="description" content="Rambla es un gestor de ventanas con scroll horizontal para macOS. Cada ventana es una columna de una tira que sigue más allá de la pantalla. Gratis y open source.">
+  <meta name="theme-color" content="#3593D2">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="preload" href="assets/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Rambla: tus ventanas en fila, para macOS">
+  <meta property="og:description" content="Gestor de ventanas con scroll horizontal. Gratis, open source y nativo.">
+  <meta property="og:image" content="https://coru29.github.io/rambla-web/assets/og.png">
+  <meta property="og:url" content="https://coru29.github.io/rambla-web/">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <a class="skip" href="#main" data-i18n="nav.skip">Saltar al contenido</a>
+
+  <header class="nav">
+    <div class="nav-inner">
+      <a class="brand" href="#top" aria-label="Rambla">
+        <img src="assets/icon-512.png" width="32" height="32" alt="">
+        <span>Rambla</span>
+      </a>
+      <nav aria-label="Secciones">
+        <a href="#como-funciona" data-i18n="nav.how">Cómo funciona</a>
+        <a href="#atajos" data-i18n="nav.shortcuts">Atajos</a>
+        <a href="#rectangle">Rectangle</a>
+        <a href="#instalar" data-i18n="nav.install">Instalar</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="lang" id="lang" type="button" aria-label="English">EN</button>
+        <a class="icon-link" href="https://github.com/Coru29/rambla" aria-label="GitHub"><span class="icon i-github"></span></a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top">
+      <div class="hero-copy">
+        <h1 data-i18n="hero.title">Tus ventanas, en fila.</h1>
+        <p class="lead" data-i18n="hero.lead">Como una rambla sin fin: cada ventana es una columna de una tira horizontal. Gratis y open source.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="https://github.com/Coru29/rambla/releases/latest/download/Rambla.dmg">
+            <span class="icon i-download"></span><span data-i18n="cta.download">Descargar para Mac</span>
+          </a>
+          <a class="btn btn-secondary" href="https://github.com/Coru29/rambla">
+            <span class="icon i-github"></span><span data-i18n="cta.github">Ver en GitHub</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="demo" id="demo" tabindex="0" aria-describedby="demo-help">
+        <div class="screen">
+          <div class="sun" aria-hidden="true"></div>
+          <div class="track" id="track"></div>
+          <div class="promenade" aria-hidden="true"></div>
+        </div>
+        <div class="controls" role="group" aria-label="Probá la demo">
+          <button type="button" data-act="left" aria-label="Enfocar la columna de la izquierda"><kbd>⌃⌘←</kbd></button>
+          <button type="button" data-act="right" aria-label="Enfocar la columna de la derecha"><kbd>⌃⌘→</kbd></button>
+          <button type="button" data-act="width"><kbd>⌃⌘R</kbd><span data-i18n="demo.width">Rotar ancho</span></button>
+          <button type="button" data-act="new"><kbd>⌘N</kbd><span data-i18n="demo.new">Ventana nueva</span></button>
+        </div>
+        <p class="demo-help" id="demo-help" data-i18n="demo.help">Probalo: tocá los botones o usá las flechas.</p>
+        <p class="sr-only" id="demo-status" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <section class="how" id="como-funciona">
+      <div class="how-head">
+        <h2 data-i18n="how.title">Nada se achica.</h2>
+        <p data-i18n="how.lead">En lugar de partir la pantalla en pedazos cada vez más chicos, Rambla agrega columnas a una tira que sigue más allá de los bordes. La pantalla se desliza a lo que estás usando.</p>
+      </div>
+      <ol class="how-list">
+        <li>
+          <span class="badge" aria-hidden="true"><span class="icon i-plus"></span></span>
+          <div>
+            <h3 data-i18n="how.a.title">Abrís una ventana</h3>
+            <p data-i18n="how.a.body">Aparece justo al lado de la que estás usando, con su tamaño. Las demás no se tocan.</p>
+          </div>
+        </li>
+        <li>
+          <span class="badge" aria-hidden="true"><span class="icon i-cursor"></span></span>
+          <div>
+            <h3 data-i18n="how.b.title">Enfocás otra</h3>
+            <p data-i18n="how.b.body">Con un atajo, un click, ⌘Tab o el Dock. La tira se desliza hasta que la ventana se ve entera.</p>
+          </div>
+        </li>
+        <li>
+          <span class="badge" aria-hidden="true"><span class="icon i-monitor"></span></span>
+          <div>
+            <h3 data-i18n="how.c.title">Lo demás espera al costado</h3>
+            <p data-i18n="how.c.body">Las ventanas que quedan afuera asoman un punto en el borde de la pantalla. Un click y vuelven.</p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <section class="features" id="funciones" aria-labelledby="features-title">
+      <h2 id="features-title" data-i18n="features.title">Hecha para trabajar todo el día.</h2>
+      <div class="bento">
+        <article class="cell cell-stacks">
+          <span class="icon i-stack" aria-hidden="true"></span>
+          <h3 data-i18n="features.stacks.title">Pilas y pestañas</h3>
+          <p data-i18n="features.stacks.body">Juntá varias ventanas en una columna, una arriba de la otra o como pestañas con su barra.</p>
+          <div class="mini-stack" aria-hidden="true"><span></span><span></span><span></span></div>
+        </article>
+        <article class="cell">
+          <span class="icon i-pin" aria-hidden="true"></span>
+          <h3 data-i18n="features.pin.title">Columnas fijadas</h3>
+          <p data-i18n="features.pin.body">El chat o la música, siempre a la vista en un borde.</p>
+        </article>
+        <article class="cell">
+          <span class="icon i-swipe" aria-hidden="true"></span>
+          <h3 data-i18n="features.trackpad.title">Trackpad</h3>
+          <p data-i18n="features.trackpad.body">Deslizá con tres o cuatro dedos y la tira te sigue.</p>
+        </article>
+        <article class="cell cell-light">
+          <span class="icon i-gauge" aria-hidden="true"></span>
+          <h3 data-i18n="features.light.title">Liviana de verdad</h3>
+          <div class="stats">
+            <p><strong>0&nbsp;%</strong><span data-i18n="features.light.cpu">de CPU en reposo</span></p>
+            <p><strong>18&nbsp;MB</strong><span data-i18n="features.light.mem">de memoria</span></p>
+          </div>
+          <p class="note" data-i18n="features.light.body">Swift nativo, sin Electron y sin revisar nada en segundo plano: solo reacciona cuando pasa algo.</p>
+        </article>
+        <article class="cell">
+          <span class="icon i-restore" aria-hidden="true"></span>
+          <h3 data-i18n="features.restore.title">Recuerda todo</h3>
+          <p data-i18n="features.restore.body">Columnas, anchos y pilas vuelven a su lugar después de reiniciar. Cada pantalla y cada escritorio tiene su propia tira.</p>
+        </article>
+        <article class="cell">
+          <span class="icon i-terminal" aria-hidden="true"></span>
+          <h3 data-i18n="features.auto.title">Automatizable</h3>
+          <p data-i18n="features.auto.body">Enlaces rambla://, comando de terminal y scripts para Raycast.</p>
+          <code class="inline-code">open -g "rambla://focus-left"</code>
+        </article>
+      </div>
+    </section>
+
+    <section class="rectangle" id="rectangle">
+      <div class="rectangle-copy">
+        <h2 data-i18n="rect.title">Convive con Rectangle.</h2>
+        <p data-i18n="rect.body">Seguí usando Rectangle como siempre. Si acomodás una ventana con Rectangle, Rambla la deja flotar donde quedó y no se pelea. Para devolverla a la tira, ⌃⌘T.</p>
+      </div>
+      <div class="keypairs" aria-label="Combinaciones de teclas">
+        <div class="keypair">
+          <span class="keys"><kbd>⌃</kbd><kbd>⌥</kbd></span>
+          <span class="who">Rectangle</span>
+        </div>
+        <div class="keypair keypair-ours">
+          <span class="keys"><kbd>⌃</kbd><kbd>⌘</kbd></span>
+          <span class="who">Rambla</span>
+        </div>
+        <p class="keypairs-note" data-i18n="rect.note">Teclas distintas: ningún atajo choca. La configuración te avisa si alguno coincide con tu Rectangle.</p>
+      </div>
+    </section>
+
+    <section class="shortcuts" id="atajos">
+      <h2 data-i18n="keys.title">Manejala con el teclado.</h2>
+      <div class="shortcut-groups">
+        <div class="group">
+          <h3 data-i18n="keys.nav">Navegar</h3>
+          <dl>
+            <div><dt><kbd>⌃⌘←</kbd><kbd>⌃⌘→</kbd></dt><dd data-i18n="keys.focus">Enfocar al costado</dd></div>
+            <div><dt><kbd>⌃⌘⇧←</kbd><kbd>⌃⌘⇧→</kbd></dt><dd data-i18n="keys.move">Mover la columna</dd></div>
+            <div><dt><kbd>⌃⌘1</kbd><kbd>…9</kbd></dt><dd data-i18n="keys.jump">Ir a la columna N</dd></div>
+            <div><dt><kbd>⌃⌘A</kbd><kbd>⌃⌘E</kbd></dt><dd data-i18n="keys.ends">Primera y última</dd></div>
+            <div><dt><kbd>⌃⌘N</kbd></dt><dd data-i18n="keys.display">A la otra pantalla</dd></div>
+          </dl>
+        </div>
+        <div class="group">
+          <h3 data-i18n="keys.size">Tamaño</h3>
+          <dl>
+            <div><dt><kbd>⌃⌘R</kbd></dt><dd data-i18n="keys.cycle">Rotar 25, 33, 50, 66 y 75 %</dd></div>
+            <div><dt><kbd>⌃⌘M</kbd></dt><dd data-i18n="keys.full">Ancho completo</dd></div>
+            <div><dt><kbd>⌃⌘C</kbd></dt><dd data-i18n="keys.center">Centrar</dd></div>
+            <div><dt><kbd>⌃⌘=</kbd><kbd>⌃⌘-</kbd></dt><dd data-i18n="keys.nudge">Más ancha o más angosta</dd></div>
+            <div><dt><kbd>⌃⌘P</kbd></dt><dd data-i18n="keys.pin">Fijar a un borde</dd></div>
+          </dl>
+        </div>
+        <div class="group">
+          <h3 data-i18n="keys.stacks">Pilas</h3>
+          <dl>
+            <div><dt><kbd>⌃⌘[</kbd><kbd>⌃⌘]</kbd></dt><dd data-i18n="keys.stack">Apilar al costado</dd></div>
+            <div><dt><kbd>⌃⌘⇧[</kbd><kbd>⌃⌘⇧]</kbd></dt><dd data-i18n="keys.pop">Sacar de la pila</dd></div>
+            <div><dt><kbd>⌃⌘↑</kbd><kbd>⌃⌘↓</kbd></dt><dd data-i18n="keys.rows">Moverte en la pila</dd></div>
+            <div><dt><kbd>⌃⌘⇧T</kbd></dt><dd data-i18n="keys.tabs">Pila o pestañas</dd></div>
+            <div><dt><kbd>⌃⌘T</kbd></dt><dd data-i18n="keys.float">Flotar o volver a la tira</dd></div>
+          </dl>
+        </div>
+      </div>
+      <a class="text-link" href="https://github.com/Coru29/rambla/blob/main/docs/MANUAL.md">
+        <span data-i18n="keys.manual">Todos los atajos están en el manual</span><span class="icon i-out" aria-hidden="true"></span>
+      </a>
+    </section>
+
+    <section class="install" id="instalar">
+      <div class="install-steps">
+        <h2 data-i18n="install.title">Instalala en un minuto.</h2>
+        <ol>
+          <li><strong data-i18n="install.a">Descargá el DMG.</strong> <span data-i18n="install.a.body">Es un solo archivo de poco más de 1 MB.</span></li>
+          <li><strong data-i18n="install.b">Arrastrá Rambla a Aplicaciones.</strong> <span data-i18n="install.b.body">La primera vez, hacé click derecho y elegí Abrir: no está notarizada por Apple.</span></li>
+          <li><strong data-i18n="install.c">Dale permiso de Accesibilidad.</strong> <span data-i18n="install.c.body">Ajustes del Sistema, Privacidad y seguridad, Accesibilidad. Es lo que le permite mover ventanas.</span></li>
+        </ol>
+        <a class="btn btn-primary" href="https://github.com/Coru29/rambla/releases/latest/download/Rambla.dmg">
+          <span class="icon i-download"></span><span data-i18n="cta.download">Descargar para Mac</span>
+        </a>
+        <p class="requirements" data-i18n="install.req">Requiere macOS 14 Sonoma o posterior y una Mac con Apple silicon.</p>
+      </div>
+      <div class="build">
+        <h3 data-i18n="install.build">¿Preferís compilarla?</h3>
+        <p data-i18n="install.build.body">Solo necesitás las Command Line Tools de Xcode.</p>
+        <div class="codeblock">
+          <pre><code id="build-code">git clone https://github.com/Coru29/rambla
+cd rambla
+scripts/install.sh</code></pre>
+          <button class="copy" type="button" data-copy="build-code" aria-label="Copiar"><span class="icon i-copy" aria-hidden="true"></span></button>
+        </div>
+      </div>
+    </section>
+
+    <section class="montevideo" aria-labelledby="mvd-title">
+      <figure>
+        <img src="assets/rambla.jpg" width="1600" height="1066" loading="lazy" decoding="async"
+             alt="Vista aérea de la rambla de Montevideo bordeando el río, con la ciudad detrás al amanecer" data-i18n-alt="mvd.alt">
+        <figcaption>
+          <a href="https://commons.wikimedia.org/wiki/File:Vistas_a%C3%A9reas_de_Montevideo,_febrero_de_2024_02.jpg" data-i18n="mvd.credit">Foto: Sala de Medios, Intendencia de Montevideo</a>,
+          <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+        </figcaption>
+      </figure>
+      <div class="montevideo-copy">
+        <h2 id="mvd-title" data-i18n="mvd.title">Hecha en Montevideo, libre para todos.</h2>
+        <p data-i18n="mvd.body">Rambla es open source con licencia MIT. Mirá el código, reportá un problema o proponé una mejora.</p>
+        <div class="cta-row">
+          <a class="btn btn-secondary btn-on-photo" href="https://github.com/Coru29/rambla">
+            <span class="icon i-github"></span><span data-i18n="cta.github">Ver en GitHub</span>
+          </a>
+          <a class="text-link text-link-on-photo" href="https://github.com/Coru29/rambla/blob/main/docs/MANUAL.md">
+            <span class="icon i-book" aria-hidden="true"></span><span data-i18n="mvd.manual">Leer el manual</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <a class="brand" href="#top">
+        <img src="assets/icon-512.png" width="28" height="28" alt="">
+        <span>Rambla</span>
+      </a>
+      <p data-i18n="footer.credits">Inspirada en niri, PaperWM y ChainYourMac. Hecha con Swift en Uruguay.</p>
+      <nav aria-label="Enlaces">
+        <a href="https://github.com/Coru29/rambla">GitHub</a>
+        <a href="https://github.com/Coru29/rambla/blob/main/docs/MANUAL.md" data-i18n="footer.manual">Manual</a>
+        <a href="https://github.com/Coru29/rambla/issues" data-i18n="footer.issues">Reportar un problema</a>
+        <a href="https://github.com/Coru29/rambla/blob/main/LICENSE" data-i18n="footer.license">Licencia MIT</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="assets/app.js" defer></script>
+</body>
+</html>
