@@ -62,7 +62,7 @@
     "keys.rows": "Move within the stack",
     "keys.tabs": "Stack or tabs",
     "keys.float": "Float or back to the strip",
-    "keys.manual": "Every shortcut is in the manual (Spanish)",
+    "keys.manual": "Every shortcut is in the manual",
     "install.title": "Install it in a minute.",
     "install.a": "Download the DMG.",
     "install.a.body": "A single file of just over 1 MB.",
@@ -92,6 +92,8 @@
   const spanishText = new Map(textNodes.map((n) => [n, n.textContent]));
   const altNodes = [...document.querySelectorAll("[data-i18n-alt]")];
   const spanishAlt = new Map(altNodes.map((n) => [n, n.getAttribute("alt")]));
+  const localizedLinks = [...document.querySelectorAll("[data-href-en]")];
+  const spanishHref = new Map(localizedLinks.map((a) => [a, a.getAttribute("href")]));
   const toggle = document.getElementById("lang");
   let lang = "es";
 
@@ -100,6 +102,7 @@
     document.documentElement.lang = next;
     for (const n of textNodes) n.textContent = next === "es" ? spanishText.get(n) : english[n.dataset.i18n] ?? spanishText.get(n);
     for (const n of altNodes) n.alt = next === "es" ? spanishAlt.get(n) : english[n.dataset.i18nAlt] ?? spanishAlt.get(n);
+    for (const a of localizedLinks) a.href = next === "es" ? spanishHref.get(a) : a.dataset.hrefEn;
     toggle.textContent = next === "es" ? "EN" : "ES";
     toggle.setAttribute("aria-label", next === "es" ? "English" : "Español");
     document.querySelector('[data-act="left"]').setAttribute("aria-label", ariaLabels[next].left);
