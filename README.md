@@ -2,7 +2,7 @@
 
 Sitio de presentación de [Rambla](https://github.com/Coru29/rambla), un gestor de ventanas con scroll horizontal para macOS.
 
-Es HTML, CSS y JavaScript sin dependencias ni paso de compilación, publicado con GitHub Pages: https://coru29.github.io/rambla-web/
+Es HTML, CSS y JavaScript sin dependencias ni paso de compilación, publicado en Vercel: https://rambla-mac.vercel.app
 
 ## Probarlo localmente
 
