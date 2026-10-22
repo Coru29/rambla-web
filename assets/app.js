@@ -103,6 +103,7 @@
     "footer.manual": "Manual",
     "footer.issues": "Report a problem",
     "footer.license": "MIT license",
+    "footer.mate": "Mate, by the same author",
   };
   const ariaLabels = {
     es: { copy: "Copiar", copied: "Copiado" },
