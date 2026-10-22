@@ -450,6 +450,12 @@ section:not(.hero):not(.montevideo) { max-width: var(--max); margin: 0 auto; pad
 .footer nav { display: flex; flex-wrap: wrap; gap: 20px; }
 .footer nav a { color: var(--muted); text-decoration: none; font-size: 0.92rem; }
 .footer nav a:hover { color: var(--text); }
+/* Directory badges: a row of their own, quiet until hovered. Dark ink on a clear background, so it is inverted in
+   dark mode. */
+.footer .featured { grid-column: 1 / -1; justify-self: start; opacity: 0.75; transition: opacity 0.2s; }
+.footer .featured:hover { opacity: 1; }
+.footer .featured img { width: 140px; height: auto; }
+@media (prefers-color-scheme: dark) { .footer .featured img { filter: invert(1); } }
 @media (max-width: 860px) { .footer-inner { grid-template-columns: 1fr; } }
 
 /* Entrance: sections rise in once as they reach the viewport. */
