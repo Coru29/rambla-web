@@ -103,6 +103,7 @@ kbd, code, pre { font-family: "Geist Mono", ui-monospace, SFMono-Regular, Menlo,
 .i-swipe { --i: url("icons/hand-swipe-right.svg"); }
 .i-mouse { --i: url("icons/mouse.svg"); }
 .i-update { --i: url("icons/arrows-clockwise.svg"); }
+.i-columns { --i: url("icons/columns.svg"); }
 .i-gauge { --i: url("icons/gauge.svg"); }
 .i-restore { --i: url("icons/clock-counter-clockwise.svg"); }
 .i-terminal { --i: url("icons/terminal-window.svg"); }
@@ -271,6 +272,13 @@ kbd {
   border-bottom-width: 2px; line-height: 1.5;
 }
 
+/* The film: a muted loop that plays while it is on screen. */
+.film h2 { max-width: 20ch; margin-bottom: 32px; }
+.film-video {
+  display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; border-radius: var(--radius-card);
+  background: #0b1f33; box-shadow: var(--shadow);
+}
+
 /* Sections share the container. */
 section:not(.hero):not(.montevideo) { max-width: var(--max); margin: 0 auto; padding: 96px 24px; }
 
@@ -288,7 +296,7 @@ section:not(.hero):not(.montevideo) { max-width: var(--max); margin: 0 auto; pad
 .how-list p { margin-top: 6px; color: var(--muted); max-width: 52ch; }
 @media (max-width: 860px) { .how { grid-template-columns: 1fr; gap: 40px; } .how-head { position: static; } }
 
-/* Features: bento with eight cells, each a different weight. */
+/* Features: bento with nine cells, each a different weight. */
 .features h2 { max-width: 18ch; margin-bottom: 40px; }
 .bento {
   display: grid; gap: 16px;
@@ -296,7 +304,7 @@ section:not(.hero):not(.montevideo) { max-width: var(--max); margin: 0 auto; pad
   grid-template-areas:
     "stacks stacks pin swipe"
     "stacks stacks mouse mouse"
-    "light light restore restore"
+    "light light restore overview"
     "update update script script";
 }
 .cell {
@@ -312,8 +320,9 @@ section:not(.hero):not(.montevideo) { max-width: var(--max); margin: 0 auto; pad
 .cell:nth-child(4) { grid-area: mouse; }
 .cell:nth-child(5) { grid-area: light; }
 .cell:nth-child(6) { grid-area: restore; }
-.cell:nth-child(7) { grid-area: update; }
-.cell:nth-child(8) { grid-area: script; }
+.cell:nth-child(7) { grid-area: overview; }
+.cell:nth-child(8) { grid-area: update; }
+.cell:nth-child(9) { grid-area: script; }
 .cell-stacks {
   background: linear-gradient(160deg, var(--celeste) 0%, var(--celeste-deep) 100%); border: 0;
   color: #06213a; min-height: 340px;
@@ -342,10 +351,10 @@ section:not(.hero):not(.montevideo) { max-width: var(--max); margin: 0 auto; pad
   background: var(--celeste-soft); color: var(--text);
 }
 @media (max-width: 900px) {
-  .bento { grid-template-columns: 1fr 1fr; grid-template-areas: "stacks stacks" "pin swipe" "mouse mouse" "light light" "restore update" "script script"; }
+  .bento { grid-template-columns: 1fr 1fr; grid-template-areas: "stacks stacks" "pin swipe" "mouse mouse" "light light" "restore overview" "update script"; }
 }
 @media (max-width: 600px) {
-  .bento { grid-template-columns: 1fr; grid-template-areas: "stacks" "pin" "swipe" "mouse" "light" "restore" "update" "script"; }
+  .bento { grid-template-columns: 1fr; grid-template-areas: "stacks" "pin" "swipe" "mouse" "light" "restore" "overview" "update" "script"; }
   .mini-stack { display: none; }
   .cell-stacks { min-height: 0; }
 }

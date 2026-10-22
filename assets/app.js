@@ -14,6 +14,8 @@
     "hero.lead": "Like an endless promenade: every window is a column on one horizontal strip. Free and open source.",
     "cta.download": "Download for Mac",
     "cta.github": "View on GitHub",
+    "film.title": "Rambla in 40 seconds.",
+    "film.label": "Video: how Rambla works",
     "demo.left": "Focus left",
     "demo.right": "Focus right",
     "demo.moveLeft": "Move left",
@@ -52,6 +54,8 @@
     "features.light.body": "Native Swift, no Electron, nothing polling in the background: it only reacts when something happens.",
     "features.restore.title": "Remembers everything",
     "features.restore.body": "Columns, widths and stacks come back after a restart. Every display and every desktop has its own strip.",
+    "features.overview.title": "Overview",
+    "features.overview.body": "⌃⌘O shows the whole strip at a glance, every window in miniature with its title. One click and you are there.",
     "features.update.title": "One-click updates",
     "features.update.body": "Once a day it checks for a new version. One click downloads it, verifies its signature and reinstalls Rambla, keeping the Accessibility permission.",
     "features.auto.title": "Scriptable",
@@ -66,6 +70,7 @@
     "keys.jump": "Go to column N",
     "keys.ends": "First and last",
     "keys.display": "To the other display",
+    "keys.overview": "Overview",
     "keys.size": "Size",
     "keys.cycle": "Cycle 25, 33, 50, 66 and 75 %",
     "keys.full": "Full width",
@@ -122,6 +127,7 @@
     toggle.textContent = next === "es" ? "EN" : "ES";
     toggle.setAttribute("aria-label", next === "es" ? "English" : "Español");
     for (const b of document.querySelectorAll(".copy")) b.setAttribute("aria-label", ariaLabels[next].copy);
+    film.setLang(next);
     try { localStorage.setItem("rambla-lang", next); } catch { /* private mode */ }
     demo.relabel();
   }
@@ -414,6 +420,36 @@
         for (const c of columns) {
           for (const w of c.wins) w.node.querySelector(".label").textContent = apps[w.app][lang];
         }
+      },
+    };
+  })();
+
+  // The film: loaded and played only while it is on screen, in the page's language. With reduced motion it waits
+  // for the visitor to press play.
+  const film = (() => {
+    const video = document.getElementById("film");
+    const spanishPoster = video.getAttribute("poster");
+    const spanishLabel = video.getAttribute("aria-label");
+    let visible = false;
+    function source() { return lang === "en" ? video.dataset.srcEn : video.dataset.srcEs; }
+    function play() {
+      if (!video.getAttribute("src")) video.src = source();
+      if (!reduceMotion) video.play().catch(() => { /* autoplay refused: the poster stays */ });
+    }
+    if (reduceMotion) video.controls = true;
+    new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        visible = entry.isIntersecting;
+        visible ? play() : video.pause();
+      }
+    }, { threshold: 0.35 }).observe(video);
+    return {
+      setLang(next) {
+        video.poster = next === "en" ? video.dataset.posterEn : spanishPoster;
+        video.setAttribute("aria-label", next === "en" ? english["film.label"] : spanishLabel);
+        if (!video.getAttribute("src")) return;
+        video.src = source();
+        if (visible) play();
       },
     };
   })();

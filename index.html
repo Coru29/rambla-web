@@ -81,6 +81,14 @@
       </div>
     </section>
 
+    <section class="film" id="video" aria-labelledby="film-title">
+      <h2 id="film-title" data-i18n="film.title">Rambla en 40 segundos.</h2>
+      <video class="film-video" id="film" muted loop playsinline preload="none" width="1920" height="1080"
+             poster="assets/video/rambla-es.jpg" data-poster-en="assets/video/rambla-en.jpg"
+             data-src-es="assets/video/rambla-es.mp4" data-src-en="assets/video/rambla-en.mp4"
+             aria-label="Video: cómo funciona Rambla"></video>
+    </section>
+
     <section class="how" id="como-funciona">
       <div class="how-head">
         <h2 data-i18n="how.title">Nada se achica.</h2>
@@ -150,6 +158,11 @@
           <p data-i18n="features.restore.body">Columnas, anchos y pilas vuelven a su lugar después de reiniciar. Cada pantalla y cada escritorio tiene su propia tira.</p>
         </article>
         <article class="cell">
+          <span class="icon i-columns" aria-hidden="true"></span>
+          <h3 data-i18n="features.overview.title">Vista general</h3>
+          <p data-i18n="features.overview.body">⌃⌘O muestra toda la tira de un vistazo, cada ventana en miniatura con su título. Un click y estás ahí.</p>
+        </article>
+        <article class="cell">
           <span class="icon i-update" aria-hidden="true"></span>
           <h3 data-i18n="features.update.title">Actualizaciones con un click</h3>
           <p data-i18n="features.update.body">Una vez por día se fija si hay una versión nueva. Con un click la descarga, verifica su firma y se reinstala sin perder el permiso de Accesibilidad.</p>
@@ -192,6 +205,7 @@
             <div><dt><kbd>⌃⌘1</kbd><kbd>…9</kbd></dt><dd data-i18n="keys.jump">Ir a la columna N</dd></div>
             <div><dt><kbd>⌃⌘A</kbd><kbd>⌃⌘E</kbd></dt><dd data-i18n="keys.ends">Primera y última</dd></div>
             <div><dt><kbd>⌃⌘N</kbd></dt><dd data-i18n="keys.display">A la otra pantalla</dd></div>
+            <div><dt><kbd>⌃⌘O</kbd></dt><dd data-i18n="keys.overview">Vista general</dd></div>
           </dl>
         </div>
         <div class="group">
@@ -225,8 +239,8 @@
         <h2 data-i18n="install.title">Instalala en un minuto.</h2>
         <ol>
           <li><strong data-i18n="install.a">Descargá el DMG.</strong> <span data-i18n="install.a.body">Es un solo archivo de 1,5 MB.</span></li>
-          <li><strong data-i18n="install.b">Arrastrá Rambla a Aplicaciones.</strong> <span data-i18n="install.b.body">No está notarizada por Apple, así que la primera vez macOS no la abre: andá a Ajustes del Sistema → Privacidad y seguridad y tocá «Abrir de todos modos». En macOS 14 alcanza con click derecho → Abrir.</span></li>
-          <li><strong data-i18n="install.c">Dale permiso de Accesibilidad.</strong> <span data-i18n="install.c.body">Ajustes del Sistema, Privacidad y seguridad, Accesibilidad. Es lo que le permite mover ventanas.</span></li>
+          <li><strong data-i18n="install.b">Arrastrá Rambla a Aplicaciones.</strong> <span data-i18n="install.b.body">No está notarizada por Apple, así que la primera vez macOS no la abre: andá a Configuración del Sistema → Privacidad y seguridad y tocá «Abrir de todos modos». En macOS 14 alcanza con click derecho → Abrir.</span></li>
+          <li><strong data-i18n="install.c">Dale permiso de Accesibilidad.</strong> <span data-i18n="install.c.body">Configuración del Sistema, Privacidad y seguridad, Accesibilidad. Es lo que le permite mover ventanas.</span></li>
         </ol>
         <a class="btn btn-primary" href="https://github.com/Coru29/rambla/releases/latest/download/Rambla.dmg">
           <span class="icon i-download"></span><span data-i18n="cta.download">Descargar para Mac</span>
