@@ -45,7 +45,7 @@
     "features.pin.title": "Pinned columns",
     "features.pin.body": "Chat or music, always in view at an edge.",
     "features.trackpad.title": "Trackpad",
-    "features.trackpad.body": "Swipe with three or four fingers and the strip follows. Swipe up and the column takes the full width.",
+    "features.trackpad.body": "Swipe with three or four fingers and the strip follows, with a haptic tap at each column. Swipe up for full width.",
     "features.mouse.title": "Mouse",
     "features.mouse.body": "Hold ⌃⌘ and the wheel goes from column to column. Or pick mouse buttons, like the side ones 4\u00a0+\u00a05, and move the mouse: the strip follows. Gets along with Mac Mouse Fix.",
     "features.light.title": "Truly light",
