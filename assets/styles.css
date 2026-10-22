@@ -171,7 +171,6 @@ kbd, code, pre { font-family: "Geist Mono", ui-monospace, SFMono-Regular, Menlo,
   .hero h1 { font-size: 2.35rem; }
   .lead { font-size: 1.08rem; }
   section:not(.hero):not(.montevideo) { padding: 72px 20px; }
-  .controls button span { display: none; }
 }
 
 /* Demo: a small working model of the strip. */
@@ -199,7 +198,8 @@ kbd, code, pre { font-family: "Geist Mono", ui-monospace, SFMono-Regular, Menlo,
   border-radius: 14px; background: rgb(255 255 255 / 0.72);
   box-shadow: 0 10px 24px -12px rgb(13 70 120 / 0.45);
   display: grid; place-items: center; color: #2f7fb8;
-  transition: transform 0.55s var(--ease), background 0.25s, box-shadow 0.25s, opacity 0.3s;
+  transition: transform 0.55s var(--ease), width 0.45s var(--ease), height 0.45s var(--ease), top 0.45s var(--ease),
+    background 0.25s, box-shadow 0.25s, opacity 0.3s, filter 0.3s;
   will-change: transform;
 }
 .win::before {
@@ -211,20 +211,59 @@ kbd, code, pre { font-family: "Geist Mono", ui-monospace, SFMono-Regular, Menlo,
 .win .label { position: absolute; bottom: 10px; font-size: 0.72rem; font-weight: 600; color: #3f7fae; }
 .win.focused { background: #fff; box-shadow: 0 0 0 3px #0a47b5, 0 14px 30px -12px rgb(13 70 120 / 0.55); color: #0a47b5; }
 .win.entering { opacity: 0; }
+.win.behind { opacity: 0; }                                  /* a tab that is not the active one */
+.win.short .label { display: none; }
+.win.short::before { display: none; }
+/* The strip slides under a pinned column, so it is drawn solid (the 72 % white over the sky, opaque). */
+.win.pinned, .tabbar.pinned { z-index: 2; }
+.win.pinned:not(.focused) { background: #cee8f7; }
+.win.pinned::after {
+  content: ""; position: absolute; top: 8px; right: 10px; width: 14px; height: 14px; background: currentColor;
+  -webkit-mask: url("icons/push-pin.svg") center / contain no-repeat; mask: url("icons/push-pin.svg") center / contain no-repeat;
+}
+.demo.no-border .win.focused { box-shadow: 0 14px 30px -12px rgb(13 70 120 / 0.55); }
+.demo.dim .win:not(.focused), .demo.dim .tabbar:not(.focused) { filter: brightness(0.6) saturate(0.8); }
+.tabbar {
+  position: absolute; left: 0; display: flex; gap: 4px; padding: 4px; border-radius: 12px;
+  background: #cee8f7; box-shadow: 0 8px 18px -12px rgb(13 70 120 / 0.45);
+  transition: transform 0.55s var(--ease), width 0.45s var(--ease), filter 0.3s;
+}
+.tabbar .tab { flex: 1; display: grid; place-items: center; border-radius: 8px; color: #3f7fae; }
+.tabbar .tab.on { background: #fff; color: #0a47b5; }
+.tabbar .tab .icon { width: 14px; height: 14px; }
 .promenade {
   position: absolute; left: 5%; right: 5%; bottom: 12%; height: 2.4%;
   border-radius: 999px; background: rgb(255 255 255 / 0.9);
 }
+/* Demo buttons: the keys as keycaps, then what they do. Pills, like every button on the site. */
 .controls { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
 .controls button {
-  display: inline-flex; align-items: center; gap: 8px; cursor: pointer;
-  padding: 7px 12px 7px 8px; border-radius: 999px; border: 1px solid var(--line);
-  background: var(--surface); color: var(--text); font: 500 0.9rem "Geist", system-ui, sans-serif;
-  transition: border-color 0.2s, transform 0.15s var(--ease);
+  display: inline-flex; align-items: center; gap: 9px; cursor: pointer;
+  padding: 5px 14px 5px 5px; border-radius: 999px; border: 1px solid var(--line);
+  background: var(--surface); color: var(--text); font: 500 0.88rem/1.2 "Geist", system-ui, sans-serif;
+  box-shadow: 0 1px 2px rgb(16 72 128 / 0.06), 0 6px 14px -10px rgb(16 72 128 / 0.35);
+  transition: border-color 0.2s, background 0.2s, box-shadow 0.2s, transform 0.15s var(--ease);
 }
-.controls button:hover { border-color: var(--celeste-deep); }
-.controls button:active { transform: translateY(1px); }
-.controls button[data-act="left"], .controls button[data-act="right"] { padding-right: 8px; }
+.controls button:hover { border-color: var(--celeste-deep); transform: translateY(-1px); }
+.controls button:active { transform: translateY(1px); box-shadow: none; }
+.controls .keys { display: inline-flex; gap: 3px; }
+.controls kbd {
+  display: inline-grid; place-items: center; min-width: 26px; height: 26px; padding: 0 7px;
+  font-size: 0.8rem; line-height: 1;
+}
+/* On / off settings: a dot that fills when on. */
+.controls button.toggle { padding: 7px 14px 7px 12px; }
+.controls button.toggle::before {
+  content: ""; width: 9px; height: 9px; border-radius: 50%; border: 1.5px solid var(--muted);
+  transition: background 0.2s, border-color 0.2s;
+}
+.controls button.toggle[aria-pressed="true"] { background: var(--celeste-soft); border-color: var(--celeste-deep); }
+.controls button.toggle[aria-pressed="true"]::before { background: var(--accent); border-color: var(--accent); }
+@media (max-width: 520px) {
+  /* No keyboard on a phone: the names are what matters. */
+  .controls .keys { display: none; }
+  .controls button, .controls button.toggle { padding: 6px 12px; font-size: 0.84rem; }
+}
 .demo-help { margin-top: 10px; font-size: 0.9rem; color: var(--muted); }
 kbd {
   display: inline-block; padding: 2px 7px; border-radius: var(--radius-key); font-size: 0.85em;

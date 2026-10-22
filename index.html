@@ -61,12 +61,22 @@
           <div class="promenade" aria-hidden="true"></div>
         </div>
         <div class="controls" role="group" aria-label="Probá la demo">
-          <button type="button" data-act="left" aria-label="Enfocar la columna de la izquierda"><kbd>⌃⌘←</kbd></button>
-          <button type="button" data-act="right" aria-label="Enfocar la columna de la derecha"><kbd>⌃⌘→</kbd></button>
-          <button type="button" data-act="width"><kbd>⌃⌘R</kbd><span data-i18n="demo.width">Rotar ancho</span></button>
-          <button type="button" data-act="new"><kbd>⌘N</kbd><span data-i18n="demo.new">Ventana nueva</span></button>
+          <button type="button" data-act="left"><span class="keys"><kbd>←</kbd></span><span class="label" data-i18n="demo.left">Enfocar izquierda</span></button>
+          <button type="button" data-act="right"><span class="keys"><kbd>→</kbd></span><span class="label" data-i18n="demo.right">Enfocar derecha</span></button>
+          <button type="button" data-act="moveLeft"><span class="keys"><kbd>⇧</kbd><kbd>←</kbd></span><span class="label" data-i18n="demo.moveLeft">Mover izquierda</span></button>
+          <button type="button" data-act="moveRight"><span class="keys"><kbd>⇧</kbd><kbd>→</kbd></span><span class="label" data-i18n="demo.moveRight">Mover derecha</span></button>
+          <button type="button" data-act="width"><span class="keys"><kbd>R</kbd></span><span class="label" data-i18n="demo.width">Rotar ancho</span></button>
+          <button type="button" data-act="full"><span class="keys"><kbd>M</kbd></span><span class="label" data-i18n="demo.full">Ancho completo</span></button>
+          <button type="button" data-act="center"><span class="keys"><kbd>C</kbd></span><span class="label" data-i18n="demo.center">Centrar</span></button>
+          <button type="button" data-act="pin"><span class="keys"><kbd>P</kbd></span><span class="label" data-i18n="demo.pin">Fijar</span></button>
+          <button type="button" data-act="stack"><span class="keys"><kbd>]</kbd></span><span class="label" data-i18n="demo.stack">Apilar</span></button>
+          <button type="button" data-act="pop"><span class="keys"><kbd>⇧</kbd><kbd>]</kbd></span><span class="label" data-i18n="demo.pop">Sacar de la pila</span></button>
+          <button type="button" data-act="tabs"><span class="keys"><kbd>⇧</kbd><kbd>T</kbd></span><span class="label" data-i18n="demo.tabs">Pestañas</span></button>
+          <button type="button" data-act="new"><span class="keys"><kbd>⌘</kbd><kbd>N</kbd></span><span class="label" data-i18n="demo.new">Ventana nueva</span></button>
+          <button type="button" class="toggle" data-toggle="border" aria-pressed="true"><span class="label" data-i18n="demo.border">Borde de foco</span></button>
+          <button type="button" class="toggle" data-toggle="dim" aria-pressed="false"><span class="label" data-i18n="demo.dim">Atenuar inactivas</span></button>
         </div>
-        <p class="demo-help" id="demo-help" data-i18n="demo.help">Probalo: tocá los botones o usá las flechas.</p>
+        <p class="demo-help" id="demo-help" data-i18n="demo.help">Probalo: tocá los botones o usá las teclas. En la app, cada atajo lleva ⌃⌘ (salvo ⌘N, que es de cada app).</p>
         <p class="sr-only" id="demo-status" aria-live="polite"></p>
       </div>
     </section>
