@@ -20,6 +20,8 @@
     "demo.right": "Focus right",
     "demo.moveLeft": "Move left",
     "demo.moveRight": "Move right",
+    "demo.above": "Strip above",
+    "demo.below": "Strip below",
     "demo.width": "Cycle width",
     "demo.full": "Full width",
     "demo.center": "Center",
@@ -30,7 +32,7 @@
     "demo.new": "New window",
     "demo.border": "Focus border",
     "demo.dim": "Dim inactive",
-    "demo.help": "Try it: tap the buttons or press the keys. In the app every shortcut adds ⌃⌘ (except ⌘N, which belongs to each app).",
+    "demo.help": "Try it: tap the buttons or press the keys. In the app every shortcut adds ⌃⌘ (except ⌘N, which belongs to each app), and the strip ones ⌃⌥⌘.",
     "how.title": "Nothing gets squeezed.",
     "how.lead": "Instead of cutting the screen into smaller and smaller pieces, Rambla adds columns to a strip that keeps going past the edges. The screen slides to whatever you are using.",
     "how.a.title": "You open a window",
@@ -42,31 +44,35 @@
     "features.title": "Made to work with all day.",
     "features.stacks.title": "Stacks and tabs",
     "features.stacks.body": "Put several windows in one column, one above the other or as tabs with their own bar.",
+    "features.strips.title": "Stacked strips",
+    "features.strips.body": "Work below, home above: several strips per display, one above another. A short swipe or ⌃⌥⌘↑\u00a0↓ takes you from one to the other.",
+    "features.trackpad.title": "Trackpad",
+    "features.trackpad.body": "Swipe with three or four fingers and the strip follows, with a haptic tap at each column. A short swipe up or down switches strips. A long swipe up gives full width, and a long swipe down opens the overview.",
     "features.pin.title": "Pinned columns",
     "features.pin.body": "Chat or music, always in view at an edge.",
-    "features.trackpad.title": "Trackpad",
-    "features.trackpad.body": "Swipe with three or four fingers and the strip follows, with a haptic tap at each column. Swipe up for full width.",
+    "features.restore.title": "Remembers everything",
+    "features.restore.body": "Columns, widths, stacks and strips come back after a restart or when a display is plugged back in. Every display and desktop has its own strips.",
     "features.mouse.title": "Mouse",
     "features.mouse.body": "Hold ⌃⌘ and the wheel goes from column to column. Or pick mouse buttons, like the side ones 4\u00a0+\u00a05, and move the mouse: the strip follows. Gets along with Mac Mouse Fix.",
     "features.light.title": "Truly light",
     "features.light.cpu": "CPU when idle",
     "features.light.mem": "of memory",
     "features.light.body": "Native Swift, no Electron, nothing polling in the background: it only reacts when something happens.",
-    "features.restore.title": "Remembers everything",
-    "features.restore.body": "Columns, widths and stacks come back after a restart or when a display is plugged back in. Every display and desktop has its own strip.",
     "features.overview.title": "Overview",
-    "features.overview.body": "⌃⌘O shows the whole strip at a glance, every window in miniature with its title. One click and you are there; drag one to move it.",
+    "features.overview.body": "⌃⌘O shows your strips at a glance, one row per strip and every window in miniature with its title. One click and you are there. Drag one to move it, or to another row to move it to that strip.",
     "features.update.title": "One-click updates",
     "features.update.body": "Once a day it checks for a new version. One click downloads it, verifies its signature and reinstalls Rambla, keeping the Accessibility permission.",
     "features.auto.title": "Scriptable",
     "features.auto.body": "rambla:// links, a command-line tool and Raycast scripts.",
     "rect.title": "Gets along with Rectangle.",
     "rect.body": "Keep using Rectangle as always. If you place a window with Rectangle, Rambla lets it float where it landed and does not fight it. ⌃⌘T puts it back in the strip.",
-    "rect.note": "Different keys, so no shortcut clashes. Settings warn you if one matches your Rectangle setup.",
+    "rect.note": "Different keys, so no shortcut clashes. The strips use ⌃⌥⌘ with ↑ and ↓, which Rectangle leaves free. Settings warn you if one matches your Rectangle setup.",
     "keys.title": "Drive it from the keyboard.",
     "keys.nav": "Navigate",
     "keys.focus": "Focus left or right",
     "keys.move": "Move the column",
+    "keys.strip": "Strip above or below",
+    "keys.carry": "Take the window to another strip",
     "keys.jump": "Go to column N",
     "keys.ends": "First and last",
     "keys.display": "To the other display",
@@ -86,7 +92,7 @@
     "keys.manual": "Every shortcut is in the manual",
     "install.title": "Install it in a minute.",
     "install.a": "Download the DMG.",
-    "install.a.body": "A single 1.5 MB file.",
+    "install.a.body": "A single 2 MB file.",
     "install.b": "Drag Rambla to Applications.",
     "install.b.body": "It is not notarized by Apple, so macOS will not open it the first time: go to System Settings → Privacy & Security and click Open Anyway. On macOS 14, right-click it and choose Open.",
     "install.c": "Grant the Accessibility permission.",
@@ -138,9 +144,11 @@
   // The demo: a working model of the strip, with the same rules as the app. New windows open next to the
   // focused one, the strip scrolls just enough to show it, and windows outside are parked at the edge. A
   // pinned column stays at the left edge, and a column can hold a stack of windows or show them as tabs.
+  // There are two strips, work below and home above, and a frosted veil hides the jump between them.
   const demo = (() => {
     const root = document.getElementById("demo");
     const track = document.getElementById("track");
+    const veil = document.getElementById("veil");
     const status = document.getElementById("demo-status");
     const apps = [
       { es: "Navegador", en: "Browser", icon: "i-compass" },
@@ -150,17 +158,28 @@
       { es: "Correo", en: "Mail", icon: "i-mail" },
       { es: "Editor", en: "Editor", icon: "i-code" },
       { es: "Chat", en: "Chat", icon: "i-chat" },
+      { es: "Fotos", en: "Photos", icon: "i-photo" },
+      { es: "Películas", en: "Movies", icon: "i-film" },
     ];
     const presets = [0.25, 1 / 3, 0.5, 2 / 3, 0.75];
     // A column: its windows (stacked, or as tabs), the active one, its width as a fraction of the screen and, while
     // it is full width, the width to go back to.
     const column = (wins, w) => ({ wins, w, active: 0, tabs: false, pinned: false, before: null });
-    const columns = [0, 1, 2, 3].map((app, i) => column([{ app }], [0.5, 1 / 3, 0.5, 2 / 3][i]));
+    let columns = [0, 1, 2, 3].map((app, i) => column([{ app }], [0.5, 1 / 3, 0.5, 2 / 3][i]));
     let focused = 0;
     let scroll = 0;
     let centerNext = false;
     let nextApp = 4;
     const bars = new Map();
+    // The strips, from the bottom one up: work, and home above it. Each keeps its own columns, focus and scroll, and
+    // the one in view lends them to `columns`, `focused` and `scroll` above, which everything else works on.
+    const strips = [
+      { name: { es: "Tira de trabajo", en: "Work strip" }, columns, focused, scroll },
+      { name: { es: "Tira de casa", en: "Home strip" }, focused: 0, scroll: 0,
+        columns: [7, 6, 8].map((app, i) => column([{ app }], [2 / 3, 1 / 3, 0.5][i])) },
+    ];
+    let level = 0;
+    let climbing = false;
 
     function build(win) {
       const node = document.createElement("div");
@@ -258,9 +277,11 @@
       }
     }
 
-    function announce() {
+    // Says which window has the focus, after the strip's name when the strip has just changed.
+    function announce(withStrip = false) {
       const c = columns[focused];
-      status.textContent = apps[c.wins[c.active].app][lang];
+      const app = apps[c.wins[c.active].app][lang];
+      status.textContent = withStrip ? `${strips[level].name[lang]}: ${app}` : app;
     }
 
     // The nearest column in that direction that is not pinned (a pinned column does not take part).
@@ -353,15 +374,55 @@
       },
     };
 
+    // Brings strip `next` into view. The strip that leaves keeps its focus and scroll, and only the windows of the one
+    // in view are shown: the others are out of the page (display: none), so they come back in place, without sliding.
+    function enter(next) {
+      Object.assign(strips[level], { focused, scroll });
+      level = next;
+      ({ columns, focused, scroll } = strips[level]);
+      for (const s of strips) {
+        for (const c of s.columns) c.wins.forEach((w) => w.node.classList.toggle("away", s !== strips[level]));
+      }
+      layout();
+    }
+
+    // The strip above (1) or below (-1). The veil comes down from above on the way up and up from below on the way
+    // down, the strips swap behind it while it covers the screen, and it goes on out the other side. With reduced
+    // motion it fades in and out in place.
+    function climb(step) {
+      if (climbing) return;
+      const next = level + step;
+      if (!strips[next]) { announce(true); return; }
+      climbing = true;
+      const off = (side) => (reduceMotion ? { transform: "none", opacity: 0 }
+        : { transform: `translateY(${side * 100}%)`, opacity: 1 });
+      const over = { transform: "none", opacity: 1 };
+      const time = reduceMotion ? 100 : 150;
+      const cover = veil.animate([off(-step), over], { duration: time, easing: "ease-in", fill: "forwards" });
+      cover.finished.then(() => {
+        enter(next);
+        announce(true);
+        const uncover = veil.animate([over, off(step)], { duration: time, easing: "ease-out" });
+        cover.cancel();                         // it held the veil over the screen until the second half took over
+        uncover.finished.then(() => { climbing = false; });
+      });
+    }
+
     function run(name) {
+      // The strip above and below go through the veil, which lays out and announces once it covers the screen.
+      if (name === "above" || name === "below") {
+        climb(name === "above" ? 1 : -1);
+        return;
+      }
       act[name]();
       layout();
       announce();
     }
 
     // A short automatic tour while the demo is on screen, until the visitor touches it.
-    const tour = ["right", "right", "new", "width", "stack", "tabs", "tabs", "pop", "full", "full", "left", "left",
-                  "pin", "right", "right", "left", "left", "pin", "right", "moveLeft", "right", "right", "center"];
+    const tour = ["right", "right", "new", "width", "stack", "tabs", "tabs", "pop", "full", "full", "above", "right",
+                  "below", "left", "left", "pin", "right", "right", "left", "left", "pin", "right", "moveLeft", "right",
+                  "right", "center"];
     let step = 0;
     let timer = null;
     let touched = false;
@@ -392,10 +453,12 @@
                         m: "full", c: "center", p: "pin", "]": "stack", "[": "stackLeft", n: "new", a: "first", e: "last" };
     const shiftKeys = { ArrowLeft: "moveLeft", ArrowRight: "moveRight", "]": "pop", "}": "pop", "[": "popLeft",
                         "{": "popLeft", t: "tabs" };
+    // The strips keep their ⌥, as in ⌃⌥⌘↑ and ⌃⌥⌘↓, since plain ↑ and ↓ move within a stack. Other ⌥ keys do nothing.
+    const optionKeys = { ArrowUp: "above", ArrowDown: "below" };
     root.addEventListener("keydown", (e) => {
-      if (e.metaKey || e.ctrlKey || e.altKey) return;
+      if (e.metaKey || e.ctrlKey || (e.altKey && (e.shiftKey || !optionKeys[e.key]))) return;
       const key = e.key.length === 1 ? e.key.toLowerCase() : e.key;
-      let name = (e.shiftKey ? shiftKeys : plainKeys)[key];
+      let name = (e.altKey ? optionKeys : e.shiftKey ? shiftKeys : plainKeys)[key];
       // Keyboards without keys of their own for [ and ]: the keys where a US keyboard has them.
       if (!name && e.code === "BracketRight") name = e.shiftKey ? "pop" : "stack";
       if (!name && e.code === "BracketLeft") name = e.shiftKey ? "popLeft" : "stackLeft";
@@ -411,14 +474,14 @@
     }, { threshold: 0.4 }).observe(root);
     new ResizeObserver(() => layout()).observe(track);
 
-    columns.forEach((c) => c.wins.forEach(build));
+    for (const s of strips) s.columns.forEach((c) => c.wins.forEach(build));
     track.style.setProperty("visibility", "hidden");
-    layout();
+    enter(level);
     requestAnimationFrame(() => track.style.removeProperty("visibility"));
 
     return {
       relabel() {
-        for (const c of columns) {
+        for (const c of strips.flatMap((s) => s.columns)) {
           for (const w of c.wins) w.node.querySelector(".label").textContent = apps[w.app][lang];
         }
       },

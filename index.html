@@ -59,12 +59,15 @@
           <div class="sun" aria-hidden="true"></div>
           <div class="track" id="track"></div>
           <div class="promenade" aria-hidden="true"></div>
+          <div class="veil" id="veil" aria-hidden="true"></div>
         </div>
         <div class="controls" role="group" aria-label="Probá la demo">
           <button type="button" data-act="left"><span class="keys"><kbd>←</kbd></span><span class="label" data-i18n="demo.left">Enfocar izquierda</span></button>
           <button type="button" data-act="right"><span class="keys"><kbd>→</kbd></span><span class="label" data-i18n="demo.right">Enfocar derecha</span></button>
           <button type="button" data-act="moveLeft"><span class="keys"><kbd>⇧</kbd><kbd>←</kbd></span><span class="label" data-i18n="demo.moveLeft">Mover izquierda</span></button>
           <button type="button" data-act="moveRight"><span class="keys"><kbd>⇧</kbd><kbd>→</kbd></span><span class="label" data-i18n="demo.moveRight">Mover derecha</span></button>
+          <button type="button" data-act="above"><span class="keys"><kbd>⌥</kbd><kbd>↑</kbd></span><span class="label" data-i18n="demo.above">Tira de arriba</span></button>
+          <button type="button" data-act="below"><span class="keys"><kbd>⌥</kbd><kbd>↓</kbd></span><span class="label" data-i18n="demo.below">Tira de abajo</span></button>
           <button type="button" data-act="width"><span class="keys"><kbd>R</kbd></span><span class="label" data-i18n="demo.width">Rotar ancho</span></button>
           <button type="button" data-act="full"><span class="keys"><kbd>M</kbd></span><span class="label" data-i18n="demo.full">Ancho completo</span></button>
           <button type="button" data-act="center"><span class="keys"><kbd>C</kbd></span><span class="label" data-i18n="demo.center">Centrar</span></button>
@@ -76,7 +79,7 @@
           <button type="button" class="toggle" data-toggle="border" aria-pressed="true"><span class="label" data-i18n="demo.border">Borde de foco</span></button>
           <button type="button" class="toggle" data-toggle="dim" aria-pressed="false"><span class="label" data-i18n="demo.dim">Atenuar inactivas</span></button>
         </div>
-        <p class="demo-help" id="demo-help" data-i18n="demo.help">Probalo: tocá los botones o usá las teclas. En la app, cada atajo lleva ⌃⌘ (salvo ⌘N, que es de cada app).</p>
+        <p class="demo-help" id="demo-help" data-i18n="demo.help">Probalo: tocá los botones o usá las teclas. En la app, cada atajo lleva ⌃⌘ (salvo ⌘N, que es de cada app) y los de tiras, ⌃⌥⌘.</p>
         <p class="sr-only" id="demo-status" aria-live="polite"></p>
       </div>
     </section>
@@ -129,14 +132,24 @@
           <div class="mini-stack" aria-hidden="true"><span></span><span></span><span></span></div>
         </article>
         <article class="cell">
+          <span class="icon i-strips" aria-hidden="true"></span>
+          <h3 data-i18n="features.strips.title">Tiras apiladas</h3>
+          <p data-i18n="features.strips.body">Trabajo abajo, casa arriba: varias tiras por pantalla, una arriba de otra. Un deslizamiento corto o ⌃⌥⌘↑&nbsp;↓ te lleva de una a otra.</p>
+        </article>
+        <article class="cell">
+          <span class="icon i-swipe" aria-hidden="true"></span>
+          <h3 data-i18n="features.trackpad.title">Trackpad</h3>
+          <p data-i18n="features.trackpad.body">Deslizá con tres o cuatro dedos y la tira te sigue, con un toque háptico en cada columna. Un deslizamiento corto hacia arriba o abajo cambia de tira. Largo hacia arriba, ancho completo; largo hacia abajo, la vista general.</p>
+        </article>
+        <article class="cell">
           <span class="icon i-pin" aria-hidden="true"></span>
           <h3 data-i18n="features.pin.title">Columnas fijadas</h3>
           <p data-i18n="features.pin.body">El chat o la música, siempre a la vista en un borde.</p>
         </article>
         <article class="cell">
-          <span class="icon i-swipe" aria-hidden="true"></span>
-          <h3 data-i18n="features.trackpad.title">Trackpad</h3>
-          <p data-i18n="features.trackpad.body">Deslizá con tres o cuatro dedos y la tira te sigue, con un toque háptico en cada columna. Hacia arriba, ancho completo.</p>
+          <span class="icon i-restore" aria-hidden="true"></span>
+          <h3 data-i18n="features.restore.title">Recuerda todo</h3>
+          <p data-i18n="features.restore.body">Columnas, anchos, pilas y tiras vuelven a su lugar al reiniciar o al reconectar una pantalla. Cada pantalla y escritorio tiene sus tiras.</p>
         </article>
         <article class="cell">
           <span class="icon i-mouse" aria-hidden="true"></span>
@@ -153,14 +166,9 @@
           <p class="note" data-i18n="features.light.body">Swift nativo, sin Electron y sin revisar nada en segundo plano: solo reacciona cuando pasa algo.</p>
         </article>
         <article class="cell">
-          <span class="icon i-restore" aria-hidden="true"></span>
-          <h3 data-i18n="features.restore.title">Recuerda todo</h3>
-          <p data-i18n="features.restore.body">Columnas, anchos y pilas vuelven a su lugar al reiniciar o al reconectar una pantalla. Cada pantalla y escritorio tiene su tira.</p>
-        </article>
-        <article class="cell">
           <span class="icon i-columns" aria-hidden="true"></span>
           <h3 data-i18n="features.overview.title">Vista general</h3>
-          <p data-i18n="features.overview.body">⌃⌘O muestra toda la tira de un vistazo, cada ventana en miniatura con su título. Un click y estás ahí; arrastrala y cambia de lugar.</p>
+          <p data-i18n="features.overview.body">⌃⌘O muestra tus tiras de un vistazo, una fila por tira y cada ventana en miniatura con su título. Un click y estás ahí. Arrastrala y cambia de lugar; llevala a otra fila y cambia de tira.</p>
         </article>
         <article class="cell">
           <span class="icon i-update" aria-hidden="true"></span>
@@ -190,7 +198,7 @@
           <span class="keys"><kbd>⌃</kbd><kbd>⌘</kbd></span>
           <span class="who">Rambla</span>
         </div>
-        <p class="keypairs-note" data-i18n="rect.note">Teclas distintas: ningún atajo choca. La configuración te avisa si alguno coincide con tu Rectangle.</p>
+        <p class="keypairs-note" data-i18n="rect.note">Teclas distintas: ningún atajo choca. Las tiras usan ⌃⌥⌘ con ↑ y ↓, que Rectangle deja libres. La configuración te avisa si alguno coincide con tu Rectangle.</p>
       </div>
     </section>
 
@@ -202,6 +210,8 @@
           <dl>
             <div><dt><kbd>⌃⌘←</kbd><kbd>⌃⌘→</kbd></dt><dd data-i18n="keys.focus">Enfocar al costado</dd></div>
             <div><dt><kbd>⌃⌘⇧←</kbd><kbd>⌃⌘⇧→</kbd></dt><dd data-i18n="keys.move">Mover la columna</dd></div>
+            <div><dt><kbd>⌃⌥⌘↑</kbd><kbd>⌃⌥⌘↓</kbd></dt><dd data-i18n="keys.strip">Tira de arriba o de abajo</dd></div>
+            <div><dt><kbd>⌃⌥⌘⇧↑</kbd><kbd>⌃⌥⌘⇧↓</kbd></dt><dd data-i18n="keys.carry">Llevar la ventana a otra tira</dd></div>
             <div><dt><kbd>⌃⌘1</kbd><kbd>…9</kbd></dt><dd data-i18n="keys.jump">Ir a la columna N</dd></div>
             <div><dt><kbd>⌃⌘A</kbd><kbd>⌃⌘E</kbd></dt><dd data-i18n="keys.ends">Primera y última</dd></div>
             <div><dt><kbd>⌃⌘N</kbd></dt><dd data-i18n="keys.display">A la otra pantalla</dd></div>
@@ -238,7 +248,7 @@
       <div class="install-steps">
         <h2 data-i18n="install.title">Instalala en un minuto.</h2>
         <ol>
-          <li><strong data-i18n="install.a">Descargá el DMG.</strong> <span data-i18n="install.a.body">Es un solo archivo de 1,5 MB.</span></li>
+          <li><strong data-i18n="install.a">Descargá el DMG.</strong> <span data-i18n="install.a.body">Es un solo archivo de 2 MB.</span></li>
           <li><strong data-i18n="install.b">Arrastrá Rambla a Aplicaciones.</strong> <span data-i18n="install.b.body">No está notarizada por Apple, así que la primera vez macOS no la abre: andá a Configuración del Sistema → Privacidad y seguridad y tocá «Abrir de todos modos». En macOS 14 alcanza con click derecho → Abrir.</span></li>
           <li><strong data-i18n="install.c">Dale permiso de Accesibilidad.</strong> <span data-i18n="install.c.body">Configuración del Sistema, Privacidad y seguridad, Accesibilidad. Es lo que le permite mover ventanas.</span></li>
         </ol>

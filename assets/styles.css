@@ -99,6 +99,7 @@ kbd, code, pre { font-family: "Geist Mono", ui-monospace, SFMono-Regular, Menlo,
 .i-cursor { --i: url("icons/cursor-click.svg"); }
 .i-monitor { --i: url("icons/monitor.svg"); }
 .i-stack { --i: url("icons/stack.svg"); }
+.i-strips { --i: url("icons/cards-three.svg"); }
 .i-pin { --i: url("icons/push-pin.svg"); }
 .i-swipe { --i: url("icons/hand-swipe-right.svg"); }
 .i-mouse { --i: url("icons/mouse.svg"); }
@@ -117,6 +118,8 @@ kbd, code, pre { font-family: "Geist Mono", ui-monospace, SFMono-Regular, Menlo,
 .i-mail { --i: url("icons/envelope-simple.svg"); }
 .i-code { --i: url("icons/code.svg"); }
 .i-chat { --i: url("icons/chat-circle-text.svg"); }
+.i-photo { --i: url("icons/image.svg"); }
+.i-film { --i: url("icons/film-slate.svg"); }
 
 /* Navigation (z-index scale: nav 20, skip link 30). */
 .nav {
@@ -213,6 +216,7 @@ kbd, code, pre { font-family: "Geist Mono", ui-monospace, SFMono-Regular, Menlo,
 .win.focused { background: #fff; box-shadow: 0 0 0 3px #0a47b5, 0 14px 30px -12px rgb(13 70 120 / 0.55); color: #0a47b5; }
 .win.entering { opacity: 0; }
 .win.behind { opacity: 0; }                                  /* a tab that is not the active one */
+.win.away { display: none; }                                 /* on a strip out of view; it comes back in place */
 .win.short .label { display: none; }
 .win.short::before { display: none; }
 /* The strip slides under a pinned column, so it is drawn solid (the 72 % white over the sky, opaque). */
@@ -235,6 +239,20 @@ kbd, code, pre { font-family: "Geist Mono", ui-monospace, SFMono-Regular, Menlo,
 .promenade {
   position: absolute; left: 5%; right: 5%; bottom: 12%; height: 2.4%;
   border-radius: 999px; background: rgb(255 255 255 / 0.9);
+}
+/* The veil: frosted glass that crosses the screen while the strip changes, so the windows' jump stays hidden. It
+   rests invisible; app.js runs it across the screen, or fades it in place with reduced motion. */
+.veil {
+  position: absolute; inset: 0; z-index: 3; pointer-events: none; opacity: 0;
+  background: #cee8f7;                                          /* solid, where there is no frosted glass */
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.7), inset 0 -1px 0 rgb(255 255 255 / 0.7);
+}
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  .veil {
+    background: rgb(240 248 253 / 0.5);
+    -webkit-backdrop-filter: blur(18px) saturate(160%);
+    backdrop-filter: blur(18px) saturate(160%);
+  }
 }
 /* Demo buttons: the keys as keycaps, then what they do. Pills, like every button on the site. */
 .controls { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
@@ -296,15 +314,16 @@ section:not(.hero):not(.montevideo) { max-width: var(--max); margin: 0 auto; pad
 .how-list p { margin-top: 6px; color: var(--muted); max-width: 52ch; }
 @media (max-width: 860px) { .how { grid-template-columns: 1fr; gap: 40px; } .how-head { position: static; } }
 
-/* Features: bento with nine cells, each a different weight. */
+/* Features: bento with ten cells, each a different weight. */
 .features h2 { max-width: 18ch; margin-bottom: 40px; }
 .bento {
   display: grid; gap: 16px;
   grid-template-columns: repeat(4, 1fr);
   grid-template-areas:
-    "stacks stacks pin swipe"
-    "stacks stacks mouse mouse"
-    "light light restore overview"
+    "stacks stacks strips strips"
+    "stacks stacks swipe swipe"
+    "pin restore mouse mouse"
+    "light light overview overview"
     "update update script script";
 }
 .cell {
@@ -315,14 +334,15 @@ section:not(.hero):not(.montevideo) { max-width: var(--max); margin: 0 auto; pad
 .cell > .icon { width: 28px; height: 28px; color: var(--accent); }
 .cell p { color: var(--muted); }
 .cell:nth-child(1) { grid-area: stacks; }
-.cell:nth-child(2) { grid-area: pin; }
+.cell:nth-child(2) { grid-area: strips; }
 .cell:nth-child(3) { grid-area: swipe; }
-.cell:nth-child(4) { grid-area: mouse; }
-.cell:nth-child(5) { grid-area: light; }
-.cell:nth-child(6) { grid-area: restore; }
-.cell:nth-child(7) { grid-area: overview; }
-.cell:nth-child(8) { grid-area: update; }
-.cell:nth-child(9) { grid-area: script; }
+.cell:nth-child(4) { grid-area: pin; }
+.cell:nth-child(5) { grid-area: restore; }
+.cell:nth-child(6) { grid-area: mouse; }
+.cell:nth-child(7) { grid-area: light; }
+.cell:nth-child(8) { grid-area: overview; }
+.cell:nth-child(9) { grid-area: update; }
+.cell:nth-child(10) { grid-area: script; }
 .cell-stacks {
   background: linear-gradient(160deg, var(--celeste) 0%, var(--celeste-deep) 100%); border: 0;
   color: #06213a; min-height: 340px;
@@ -351,10 +371,10 @@ section:not(.hero):not(.montevideo) { max-width: var(--max); margin: 0 auto; pad
   background: var(--celeste-soft); color: var(--text);
 }
 @media (max-width: 900px) {
-  .bento { grid-template-columns: 1fr 1fr; grid-template-areas: "stacks stacks" "pin swipe" "mouse mouse" "light light" "restore overview" "update script"; }
+  .bento { grid-template-columns: 1fr 1fr; grid-template-areas: "stacks stacks" "strips strips" "swipe swipe" "pin restore" "mouse mouse" "light light" "overview overview" "update script"; }
 }
 @media (max-width: 600px) {
-  .bento { grid-template-columns: 1fr; grid-template-areas: "stacks" "pin" "swipe" "mouse" "light" "restore" "overview" "update" "script"; }
+  .bento { grid-template-columns: 1fr; grid-template-areas: "stacks" "strips" "swipe" "pin" "restore" "mouse" "light" "overview" "update" "script"; }
   .mini-stack { display: none; }
   .cell-stacks { min-height: 0; }
 }
